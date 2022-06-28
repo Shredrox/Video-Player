@@ -1,0 +1,69 @@
+﻿<Window x:Class="VideoPlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:VideoPlayer"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="Video Player" Height="500" Width="900" Background="#FF28282B"
+        WindowStartupLocation="CenterScreen">
+    
+    <Grid>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+            <MediaElement 
+                LoadedBehavior="Manual"
+                Name="VideoPlayer" 
+                Grid.Row="0"/>
+            
+            <StackPanel Grid.Row="1">
+                <Label 
+                    Name="lblStatus" 
+                    Content="Not playing..." 
+                    HorizontalContentAlignment="Center" 
+                    Margin="5" 
+                    Foreground="Yellow" />
+                
+                <WrapPanel HorizontalAlignment="Center">
+                    <Button 
+                        Name="LoadVideoFile" 
+                        Click="LoadVideoFile_Click"
+                        Content="Load Video File"
+                        Margin="0 0 5 0"
+                        Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}"/>
+                    
+                    <Button 
+                        Name="PlayButton" 
+                        Click="PlayButton_Click" 
+                        Content="Play"
+                        Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}"/>
+
+                    <Button 
+                        Name="PauseButton" 
+                        Margin="5,0" 
+                        Content="Pause"
+                        Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}"
+                        Click="PauseButton_Click"/>
+
+                    <Button 
+                        Name="StopButton" 
+                        Content="Stop"
+                        Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}"
+                        Click="StopButton_Click"/>
+                    
+                </WrapPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
