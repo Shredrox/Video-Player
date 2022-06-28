@@ -26,15 +26,32 @@
                 LoadedBehavior="Manual"
                 Name="VideoPlayer" 
                 Grid.Row="0"/>
-            
+
             <StackPanel Grid.Row="1">
-                <Label 
-                    Name="lblStatus" 
-                    Content="Not playing..." 
-                    HorizontalContentAlignment="Center" 
-                    Margin="5" 
-                    Foreground="Yellow" />
                 
+                <TextBlock 
+                    Name="VideoDurationText"
+                    HorizontalAlignment="Center"
+                    FontSize="20"
+                    Margin="5"
+                    Height="25"
+                    Foreground="Yellow"/>
+
+                <Slider 
+                    Name="VideoDuration" 
+                    Width="660" 
+                    HorizontalAlignment="Center" 
+                    MouseDown="VideoDuration_MouseDown" 
+                    Thumb.DragStarted="VideoDuration_DragStarted" 
+                    Thumb.DragCompleted="VideoDuration_DragCompleted"  ValueChanged="VideoDuration_ValueChanged" 
+                    Margin="0,0,0,10" 
+                    Minimum="0" 
+                    Maximum="100"
+                    Background="#FF2C2F33" 
+                    BorderBrush="#FF23272A" 
+                    Foreground="Yellow">
+                </Slider>
+
                 <WrapPanel HorizontalAlignment="Center">
                     <Button 
                         Name="LoadVideoFile" 

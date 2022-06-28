@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace VideoPlayer
@@ -10,6 +11,8 @@ namespace VideoPlayer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool sliderDrag = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -22,13 +25,12 @@ namespace VideoPlayer
 
         void timer_Tick(object sender, EventArgs e)
         {
-            if (VideoPlayer.Source != null)
+            if ((VideoPlayer.Source != null) && VideoPlayer.NaturalDuration.HasTimeSpan && (!sliderDrag))
             {
-                if (VideoPlayer.NaturalDuration.HasTimeSpan)
-                    lblStatus.Content = String.Format("{0} / {1}", VideoPlayer.Position.ToString(@"mm\:ss"), VideoPlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
+                VideoDuration.Minimum = 0;
+                VideoDuration.Maximum = VideoPlayer.NaturalDuration.TimeSpan.TotalSeconds;
+                VideoDuration.Value = VideoPlayer.Position.TotalSeconds;
             }
-            else
-                lblStatus.Content = "No file selected...";
         }
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
@@ -44,6 +46,29 @@ namespace VideoPlayer
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
             VideoPlayer.Stop();
+        }
+
+        private void VideoDuration_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            int SliderValue = (int)VideoDuration.Value;
+            TimeSpan ts = new TimeSpan(0, 0, 0, 0, SliderValue);
+            VideoPlayer.Position = ts;
+        }
+
+        private void VideoDuration_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
+        {
+            sliderDrag = true;
+        }
+
+        private void VideoDuration_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            sliderDrag = false;
+            VideoPlayer.Position = TimeSpan.FromSeconds(VideoDuration.Value);
+        }
+
+        private void VideoDuration_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            VideoDurationText.Text = TimeSpan.FromSeconds(VideoDuration.Value).ToString(@"mm\:ss");
         }
 
         private void LoadVideoFile_Click(object sender, RoutedEventArgs e)
