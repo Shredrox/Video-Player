@@ -15,73 +15,84 @@
         Title="Video Player" Height="500" Width="900" Background="#FF28282B"
         WindowStartupLocation="CenterScreen">
     
-    <Grid>
-        <Grid Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            
-            <MediaElement 
+    <Grid Margin="10" Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <MediaElement 
                 LoadedBehavior="Manual"
                 Name="VideoPlayer" 
                 Grid.Row="0"/>
 
-            <StackPanel Grid.Row="1">
-                <DockPanel>
-                    <Slider 
-                        Name="VideoDuration" 
-                        Width="660" 
-                        HorizontalAlignment="Center" 
-                        MouseDown="VideoDuration_MouseDown" 
-                        Thumb.DragStarted="VideoDuration_DragStarted" 
-                        Thumb.DragCompleted="VideoDuration_DragCompleted"  ValueChanged="VideoDuration_ValueChanged" 
-                        Margin="110,10,0,10" 
-                        Minimum="0" 
-                        Maximum="100"
-                        Background="#FF2C2F33" 
-                        BorderBrush="#FF23272A" 
-                        Foreground="Yellow">
-                    </Slider>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="65"/>
+            </Grid.ColumnDefinitions>
 
-                    <TextBlock 
-                        Name="VideoDurationText"
-                        HorizontalAlignment="Center"
-                        FontSize="20"
-                        Margin="5"
-                        Height="25"
-                        Foreground="Yellow"/>
-                </DockPanel>
-                
-                <WrapPanel HorizontalAlignment="Center">
-                    <Button 
-                        Name="LoadVideoFile" 
-                        Click="LoadVideoFile_Click"
-                        Content="Load Video File"
-                        Margin="0 0 5 0"
-                        Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}"/>
-                    
-                    <Button 
-                        Name="PlayButton" 
-                        Click="PlayButton_Click" 
-                        Content="Play"
-                        Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}"/>
+            <Slider 
+                Name="VideoDuration" 
+                Width="{Binding Path=ActualWidth, ElementName=ParentPanel}" 
+                HorizontalAlignment="Stretch" 
+                MouseDown="VideoDuration_MouseDown" 
+                Thumb.DragStarted="VideoDuration_DragStarted" 
+                Thumb.DragCompleted="VideoDuration_DragCompleted"  ValueChanged="VideoDuration_ValueChanged" 
+                Margin="10,10,0,10" 
+                Minimum="0" 
+                Maximum="100"
+                Background="#FF2C2F33" 
+                BorderBrush="#FF23272A" 
+                Foreground="Yellow">
+            </Slider>
 
-                    <Button 
-                        Name="PauseButton" 
-                        Margin="5,0" 
-                        Content="Pause"
-                        Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}"
-                        Click="PauseButton_Click"/>
+            <TextBlock 
+                Name="VideoDurationText"
+                HorizontalAlignment="Center"
+                Text="00:00"
+                FontSize="20"
+                Margin="5"
+                Height="25"
+                Grid.Column="1"
+                Foreground="Yellow"/>
 
-                    <Button 
-                        Name="StopButton" 
-                        Content="Stop"
-                        Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}"
-                        Click="StopButton_Click"/>
-                    
-                </WrapPanel>
-            </StackPanel>
         </Grid>
+
+        <WrapPanel HorizontalAlignment="Center" Grid.Row="2">
+            <Button 
+                Name="LoadVideoFile" 
+                Click="LoadVideoFile_Click"
+                Content="Load Video File"
+                Margin="0 0 5 0"
+                Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}"/>
+
+            <Button 
+                Name="PlayButton" 
+                Click="PlayButton_Click"
+                Width="30"
+                Padding="0"
+                Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}">
+                <materialDesign:PackIcon Name="PlayPauseIcon" Kind="PlayCircle" />
+            </Button>
+
+            <Button 
+                Name="StopButton"
+                Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}"
+                Click="StopButton_Click">
+                <materialDesign:PackIcon Kind="StopCircle" />
+            </Button>
+
+            <Button 
+                Name="FullscreenButton"
+                Style="{StaticResource MaterialDesignOutlinedSecondaryLightButton}"
+                Click="FullscreenButton_Click">
+                <materialDesign:PackIcon Kind="Fullscreen" />
+            </Button>
+        </WrapPanel>
     </Grid>
 </Window>

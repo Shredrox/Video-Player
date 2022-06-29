@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -33,14 +34,18 @@ namespace VideoPlayer
             }
         }
 
-        private void PauseButton_Click(object sender, RoutedEventArgs e)
-        {
-            VideoPlayer.Pause();
-        }
-
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            VideoPlayer.Play();
+            if(PlayPauseIcon.Kind == MaterialDesignThemes.Wpf.PackIconKind.PlayCircle)
+            {
+                VideoPlayer.Play();
+                PlayPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.PauseCircle;
+            }
+            else if(PlayPauseIcon.Kind == MaterialDesignThemes.Wpf.PackIconKind.PauseCircle)
+            {
+                VideoPlayer.Pause();
+                PlayPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.PlayCircle;
+            }
         }
 
         private void StopButton_Click(object sender, RoutedEventArgs e)
@@ -85,6 +90,11 @@ namespace VideoPlayer
 
                 VideoPlayer.Source = new Uri(fileDialog.FileName, UriKind.RelativeOrAbsolute);
             }
+        }
+
+        private void FullscreenButton_Click(object sender, RoutedEventArgs e)
+        {
+           Grid.SetRowSpan(VideoPlayer, 3);
         }
     }
 }
