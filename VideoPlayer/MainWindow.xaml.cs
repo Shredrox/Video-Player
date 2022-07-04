@@ -24,7 +24,7 @@ namespace VideoPlayer
             timer.Start();
         }
 
-        void timer_Tick(object sender, EventArgs e)
+        void timer_Tick(object? sender, EventArgs e)
         {
             if ((VideoPlayer.Source != null) && VideoPlayer.NaturalDuration.HasTimeSpan && (!sliderDrag))
             {
@@ -94,7 +94,16 @@ namespace VideoPlayer
 
         private void FullscreenButton_Click(object sender, RoutedEventArgs e)
         {
-           Grid.SetRowSpan(VideoPlayer, 3);
+            if (FullscreenIcon.Kind == MaterialDesignThemes.Wpf.PackIconKind.Fullscreen)
+            {
+                Grid.SetRowSpan(VideoPlayer, 3);
+                FullscreenIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.FullscreenExit;
+            }
+            else if (FullscreenIcon.Kind == MaterialDesignThemes.Wpf.PackIconKind.FullscreenExit)
+            {
+                Grid.SetRowSpan(VideoPlayer, 1);
+                FullscreenIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Fullscreen;
+            }
         }
 
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
