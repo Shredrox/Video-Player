@@ -12,8 +12,13 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Video Player" Height="500" Width="900" Background="#FF28282B"
-        WindowStartupLocation="CenterScreen" MinHeight="300" MinWidth="550">
+        Title="Video Player" 
+        Height="500" 
+        Width="900" 
+        Background="#FF28282B"
+        WindowStartupLocation="CenterScreen" 
+        MinHeight="300" 
+        MinWidth="550">
     
     <Grid Margin="10" Name="MainGrid">
         <Grid.RowDefinitions>
@@ -28,7 +33,8 @@
         <MediaElement 
             LoadedBehavior="Manual"
             Name="VideoPlayer" 
-            Grid.Row="0"/>
+            Grid.Row="0"
+            MouseLeftButtonDown="VideoPlayer_MouseLeftButtonDown"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

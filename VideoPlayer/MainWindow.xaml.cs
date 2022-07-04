@@ -97,11 +97,13 @@ namespace VideoPlayer
             if (FullscreenIcon.Kind == MaterialDesignThemes.Wpf.PackIconKind.Fullscreen)
             {
                 Grid.SetRowSpan(VideoPlayer, 3);
+                MainGrid.Margin = new Thickness(0, 0, 0, 0);
                 FullscreenIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.FullscreenExit;
             }
             else if (FullscreenIcon.Kind == MaterialDesignThemes.Wpf.PackIconKind.FullscreenExit)
             {
                 Grid.SetRowSpan(VideoPlayer, 1);
+                MainGrid.Margin = new Thickness(10, 10, 10, 10);
                 FullscreenIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Fullscreen;
             }
         }
@@ -109,6 +111,23 @@ namespace VideoPlayer
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             VideoPlayer.Volume = (double)VolumeSlider.Value;
+        }
+
+        private bool isFullscreen = false;
+        private void VideoPlayer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2 && !isFullscreen)
+            {
+                this.WindowStyle = WindowStyle.None;
+                this.WindowState = WindowState.Maximized;
+                isFullscreen = true;
+            }
+            else if (e.ClickCount == 2 && isFullscreen) 
+            {
+                this.WindowStyle = WindowStyle.SingleBorderWindow;
+                this.WindowState = WindowState.Normal;
+                isFullscreen = false;
+            }
         }
     }
 }
