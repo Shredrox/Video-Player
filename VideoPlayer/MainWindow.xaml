@@ -34,9 +34,10 @@
             LoadedBehavior="Manual"
             Name="VideoPlayer" 
             Grid.Row="0"
-            MouseLeftButtonDown="VideoPlayer_MouseLeftButtonDown"/>
+            MouseLeftButtonDown="VideoPlayer_MouseLeftButtonDown"
+            MouseMove="VideoPlayer_MouseMove"/>
 
-        <Grid Grid.Row="1">
+        <Grid Name="DurationGrid" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="65"/>
@@ -70,7 +71,7 @@
 
         </Grid>
 
-        <WrapPanel HorizontalAlignment="Center" Grid.Row="2">
+        <WrapPanel Name="ControlsPanel" HorizontalAlignment="Center" Grid.Row="2">
             <Button 
                 Name="LoadVideoFile" 
                 Click="LoadVideoFile_Click"
